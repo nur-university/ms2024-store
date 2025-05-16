@@ -16,6 +16,12 @@ cat <<EOF | vault kv put -mount=secret CatalogDatabaseConnectionString -
 }
 EOF
 
+cat <<EOF | vault kv put -mount=secret InventoryDatabaseConnectionString -
+{
+  "ConnectionString": "Host=localhost;Port=5432;Database=StoreInventory;Username=postgres;Password=postgresspassword;Include Error Detail=true"
+}
+EOF
+
 cat <<EOF | vault kv put -mount=secret JwtOptions -
 {
   "Lifetime": 30,
