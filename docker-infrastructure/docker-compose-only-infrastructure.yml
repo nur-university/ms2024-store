@@ -4,7 +4,6 @@ networks:
     driver: bridge
 
 services:
-
   
   postgres_server:
     image: postgres:latest
@@ -81,3 +80,22 @@ services:
     networks:
       - microservice-net
 
+  jaeger:
+    image: jaegertracing/all-in-one:1.53
+    container_name: jaeger
+    ports:
+      - "16686:16686"     # Jaeger UI
+      - "6831:6831/udp"   # Jaeger Agent (UDP)
+      - "14250:14250"     # Jaeger Collector (gRPC)
+    networks:
+      - microservice-net
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+    networks:
+      - microservice-net
